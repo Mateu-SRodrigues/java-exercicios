@@ -15,6 +15,7 @@ public class ex6 {
 
 		Scanner teclado = new Scanner (System.in);
 		
+		//Pede e armazena as notas
 		System.out.println("Digite a nota da Av1: ");
 		float av1 = teclado.nextFloat();
 		System.out.println("Digite a nota do Tb1: ");
@@ -22,6 +23,7 @@ public class ex6 {
 		System.out.println("Digite a nota do Tb2: ");
 		float tb2 = teclado.nextFloat();
 		
+		//Calcula, armazena e exibe a nota final
 		float nf = av1 + ((tb1 + tb2) / 2);
 		System.out.println("A nota final é " + nf + ".");
 		
