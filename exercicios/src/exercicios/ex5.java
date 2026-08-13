@@ -17,9 +17,11 @@ public class ex5 {
 		
 		Scanner teclado = new Scanner (System.in);
 		
+		//Pede e armazena o valor do salário
 		System.out.println("Digite o salário: ");
 		double salario = teclado.nextDouble();
 
+		//Aplica o desconto com base na tabela do IR
 		if (salario <= 2259.20) {
 			salario = salario * 1;
 		}
@@ -36,6 +38,7 @@ public class ex5 {
 			salario = salario * 0.73;
 		}
 		
+		//Exibi o salário após o seu devido desconto
 		System.out.println("O salário é de R$" + salario + " com desconto.");
 		
 		teclado.close();
