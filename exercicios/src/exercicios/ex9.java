@@ -18,11 +18,13 @@ public class ex9 {
 		
 		double c, f;
 		
+		//Armazena a temperatura em C e converte para F
 		System.out.println("Digite a temperatura em Celsius: ");
 		c = teclado.nextDouble();
 		f = (9.0/5) * (c - 32);
 		System.out.println(c + "°C = " + f + "°F.");
 		
+		//Armazena a temperatura em F e converte para C
 		System.out.println("Digite a temperatura em Fahrenheit: ");
 		f = teclado.nextDouble();
 		c = (5.0/9) * (f - 32);
