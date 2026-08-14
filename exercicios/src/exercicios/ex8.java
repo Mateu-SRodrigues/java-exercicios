@@ -13,11 +13,13 @@ public class ex8 {
 		
 		Scanner teclado = new Scanner (System.in);
 		
+		//Armazena o nome e o número do jogador
 		System.out.println("Digite o nome do jogador: ");
 		String nome = teclado.next();
 		System.out.println("Digite o número do jogador: ");
 		int n = teclado.nextInt();
 		
+		//Verifica se o número é par (divisível por dois) ou ímpar
 		if (n % 2 == 0) {
 			System.out.println("O jogador " + nome + " VENCEU!");
 		}
