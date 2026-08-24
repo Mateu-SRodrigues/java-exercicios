@@ -2,10 +2,10 @@
 mostre o nome e a idade da pessoa mais nova e da pessoas mais
 velha*/
 
-package exercicios;
+package exercicios.ex2;
 import java.util.Scanner;
 
-public class ex2 {
+public class Main {
 
 	public static void main(String[] args) {
 		Pessoa[] pessoa = new Pessoa[5];//Cria um vetor do tipo Pessoa, com tamanho 5, e armazena na variável pessoa
