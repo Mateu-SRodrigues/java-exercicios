@@ -44,17 +44,9 @@ public class ContaBancaria {
 	public String getTitular() {
 		return titular;
 	}
-	//Recebe o nome do titular como parâmetro e atribue à variável titular de uma conta específica
-	public void setTitular(String titular) {
-		this.titular = titular;
-	}
 	//Retorna o numero da conta, evitando acesso direto a esse atributo
 	public String getNumero() {
 		return numero;
-	}
-	//Recebe o número da conta como parâmetro e atribue à variável numero de uma conta específica
-	public void setNumero(String numero) {
-		this.numero = numero;
 	}
 	//Retorna o valor do saldo, evitando acesso direto a esse atributo
 	public double getSaldo() {
