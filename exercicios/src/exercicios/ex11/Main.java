@@ -1,21 +1,23 @@
 package exercicios.ex11;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
-		//Cria o vetor conta, do tipo ContaBancaria, que armazena no máximo 3 contas
-		ContaBancaria[] conta = new ContaBancaria[3];
-		//Cria as variáveis opção e qtdContas, armazena o número de contas
+		
+		//Cria o ArrayList contas, do tipo ContaBancaria, que armazena as contas
+		ArrayList<ContaBancaria> contas = new ArrayList<>();
+		
+		//Armazena a opção do usuário
 		int opcao;
-		int qtdContas = 0;
 		
 		//Exibi o Menu Principal enquanto a opção desejada for != 0
 		do {
 			System.out.println("\n=============== MENU PRINCIPAL ===============");
-			System.out.println("1.Criar conta (" + qtdContas + "/3 cadastradas)");
+			System.out.println("1.Criar conta (" + contas.size() + " cadastrada(s))");
 			System.out.println("2.Selecionar uma conta existente");
-			System.out.println("3.Consultar dados");
+			System.out.println("3.Consultar conta");
 			System.out.println("0.Sair");
 			System.out.println("Selecione uma opção: ");
 			
@@ -26,34 +28,29 @@ public class Main {
 			switch (opcao) {
 			//Caso 1:
 			case 1:
-				//Se a quantidade de contas for menor que o vetor conta, cria uma nova conta
-				if(qtdContas < conta.length) {
-					conta[qtdContas] = criarConta(teclado);
-					qtdContas++;
-				} else {
-					System.out.println("Número máximo de contas atingido!");
-					break;
-				}
+				//Adiciona uma nova conta no final da lista contas
+				contas.add(Main.criarConta(teclado));
 				break;
 			//Caso 2: 
 			case 2:
-				//Se a quantidade de contas for > 0, contaSelecionada recebe a conta que o usuário selecionou
-				if(qtdContas == 0) {
-					System.out.println("Nenhuma conta cadastrada!");
-				} else {
-					ContaBancaria contaSelecionada = selecionarConta(conta, qtdContas, teclado);
+				//Se o tamanho da lista de contas for > 0, contaSelecionada recebe o valor de retorno do método selecionarConta
+				if(contas.size() > 0) {
+					ContaBancaria contaSelecionada = selecionarConta(contas, teclado);
 					//Se a conta não estiver vazia, o Menu Operações é exibido
-					if(contaSelecionada != null) {
+					if(contaSelecionada != null)
 						menuOperacoes(contaSelecionada, teclado);
-					}
+				} else {
+					System.out.println("Nenhuma conta cadastrada!");
 				}
 				break;
 			//Caso 3:
 			case 3:
-				//Percorre e exibe todos os dados das contas do vetor conta
+				//Percorre e exibe os dados de todas as contas da lista contas
 				System.out.println("Dados das contas cadastradas:");
-				for(int i = 0; i < qtdContas; i++) {
-					System.out.println((i+1) + ". Titular:" + conta[i].getTitular() + " | Nº: " + conta[i].getNumero() + " | Saldo: " + conta[i].getSaldo());
+				for(int i = 0; i < contas.size(); i++) {
+					//contaAtual armazena uma conta de acordo com sua posição na lista contas
+					ContaBancaria contaAtual = contas.get(i);
+					System.out.println((i+1) + ". Titular:" + contaAtual.getTitular() + " | Nº: " + contaAtual.getNumero() + " | Saldo: " + contaAtual.getSaldo());
 				}
 				break;
 			//Caso 0: Encerra a execução do programa
@@ -77,42 +74,47 @@ public class Main {
 		
 		System.out.println("Digite o numero da conta: ");
 		String numero = teclado.nextLine();
+		
 		//Armazena os dados em newConta de acordo com a assinatura de método do construtor ContaBancaria
 		ContaBancaria newConta = new ContaBancaria(titular, numero);
 		
 		System.out.println("Conta em nome de " + newConta.getTitular() + " criada com sucesso!\n");
 		return newConta;
 	}
-	//Exibi todas as contas cadastradas e retorna conta selecionada
-	public static ContaBancaria selecionarConta(ContaBancaria[] conta, int qtdContas, Scanner teclado) {
+	//Exibi todas as contas cadastradas e retorna a conta selecionada
+	public static ContaBancaria selecionarConta(ArrayList<ContaBancaria> contas, Scanner teclado) {
 		
 		System.out.println("\n=============== SELECIONAR CONTA ===============");
 		
-		//Percorre e exibi todas as contas do vetor conta
-		for(int i = 0; i < qtdContas; i++) {
-			System.out.println((i+1) + ". Titular:" + conta[i].getTitular() + " | Nº: " + conta[i].getNumero());
-		}
+		//Armazena o número da conta desejada
+		System.out.println("\n---- BUSCAR NÚMERO ----");
+		System.out.println("Digite o número da conta: ");
+		String numero = teclado.nextLine();
 		
-		//Armazena o índice da conta selecionada
-		System.out.println("Selecione a conta: ");
-		int indice = teclado.nextInt() - 1;
-		
-		if(indice < 0 || indice > qtdContas) {
-			System.out.println("Opção de conta inválida!");
-			return null;
-		} else {
-			//Exibi os dados da conta selecionada por meio dos métodos get e a retorna
-			System.out.println("\nCONTA SELECIONADA:");
-			System.out.println("Titular: " + conta[indice].getTitular() + " | Nº: " + conta[indice].getNumero() + " | Saldo: " + conta[indice].getSaldo() + ".");
+		//Percorre a lista contas
+		for(int i = 0; i < contas.size(); i++) {
 			
-			return conta[indice];
+			//contaAtual armazena uma conta de acordo com seu índice na lista contas
+			ContaBancaria contaAtual = contas.get(i);
+			
+			//Se o número da contaAtual = número dado pelo usuário, retorna a conAtual
+			if(contaAtual.getNumero().equals(numero)) { //Compara o conteúdo de duas strings
+				System.out.println("Conta encontrada!");
+				System.out.println("Titular: " + contaAtual.getTitular() + " | Nº: " + contaAtual.getNumero() + " | Saldo: " + contaAtual.getSaldo() + ".");
+				return contaAtual;
+				}
 		}
-
+		//Se não, exibe uma mensagem e retorna nada
+		System.out.println("Conta não encontrada!");
+		return null;
 	}
-	//Exibi o Menu Operações enquanto a opção desejada for != 0
+	//Exibe e raliza as operações de deposito e/ou saque na conta selecionada
 	private static void menuOperacoes(ContaBancaria conta, Scanner teclado) {
+		
+		//Armazena a opção do usuário
 		int opcao;
 		
+		//Exibi o Menu Operações enquanto a opção desejada for != 0
 		do {
 			System.out.println("\n=============== MENU OPERAÇÕES ===============");
 			System.out.println("1.Depositar");
@@ -134,7 +136,7 @@ public class Main {
 				break;
 			//Caso 2: Sacar
 			case 2:
-				//Pede o valor do saque e passa como parâmetro do método sacar
+				//Pede o valor do saque e passa como parâmetro do método sacar()
 				System.out.println("Digite o valor do saque: ");
 				double valorSaque = teclado.nextDouble();
 				conta.sacar(valorSaque);
